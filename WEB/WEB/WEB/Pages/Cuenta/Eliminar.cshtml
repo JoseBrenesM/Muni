@@ -1,0 +1,55 @@
+﻿@page
+@model WEB.Pages.Cuenta.EliminarModel
+@{
+    @ViewData["MUNI"]
+}
+<h1>Esta seguro que desea eliminar esta Cuenta?</h1>
+<h6>Esta acción no se podrá rehacer.</h6>
+<br />
+
+<br />
+<div class="container">
+    <form method="post">
+        <input type="hidden" asp-for="@Model.persona.Id" />
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label"><b>Nombre</b></label>
+            <input readonly asp-for="persona.Nombre" type="text" class="form-control" id="exampleFormControlInput1">
+            <span asp-validation-for="persona.Nombre" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label"><b>Apellidos</b></label>
+            <input readonly asp-for="persona.Apellido" type="text" class="form-control" id="exampleFormControlInput1">
+            <span asp-validation-for="persona.Apellido" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Direccion</label>
+            <textarea readonly asp-for="persona.Direccion" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <span asp-validation-for="persona.Direccion" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label"><b>Teléfono</b></label>
+            <input readonly asp-for="persona.Telefono" type="text" class="form-control" id="exampleFormControlInput1">
+            <span asp-validation-for="persona.Telefono" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label"><b>Correo electrónico</b></label>
+            <input readonly asp-for="persona.Correo" type="email" class="form-control" id="exampleFormControlInput1">
+            <span asp-validation-for="persona.Correo" class="text-danger"></span>
+        </div>
+        <input type="submit" value="Eliminar" class="btn btn-danger w-100" />
+        <div asp-validation-summary="All" class="text-danger"></div>
+    </form>
+    <input type="hidden" id="attentionMessage" value="@TempData["Atención"]" />
+</div>
+
+<div>
+    <a asp-page="./Index" class="btn btn-secondary w-100">Regresar</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+<script src="~/js/mensajeError.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

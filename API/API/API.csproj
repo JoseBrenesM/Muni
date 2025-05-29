@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Controllers\**" />
+		<Content Remove="Controllers\**" />
+		<EmbeddedResource Remove="Controllers\**" />
+		<None Remove="Controllers\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+		<PackageReference Include="ClosedXML" Version="0.102.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Abstracciones\Abstracciones.csproj" />
+		<ProjectReference Include="..\BC\BC.csproj" />
+		<ProjectReference Include="..\BW\BW.csproj" />
+		<ProjectReference Include="..\DA\DA.csproj" />
+		<ProjectReference Include="..\SG\SG.csproj" />
+	</ItemGroup>
+</Project>

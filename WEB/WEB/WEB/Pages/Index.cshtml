@@ -1,0 +1,61 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+   
+}
+
+<main class="mt-5">
+
+    <div class="container">
+
+        <div class="row justify-content-center" style="height:700px">
+            <div>
+                
+            </div>
+            <div class="col-md-4">
+                <img src="/img/muni.png" alt="MUNI" style="width:auto; height:20%" />
+                <div class="text-center mb-4">
+                    <h2>Bienvenido!</h2>
+                    <p>Por favor accede a tu cuenta.</p>
+                </div>
+                <form class="form p-4 border rounded" method="post">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Usuario</label>
+                        <input type="email" asp-for="loginInfo.Correo" class="form-control" placeholder="Usuario" aria-label="Nombre de usuario" aria-describedby="basic-addon1">
+
+                        <span asp-validation-for="loginInfo.Correo" class="text-danger d-block mt-1"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" asp-for="loginInfo.Password" class="form-control" placeholder="Contraseña" aria-label="Nombre de usuario" aria-describedby="basic-addon1">
+
+                        <span asp-validation-for="loginInfo.Password" class="text-danger d-block mt-1"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+                    <br />
+               
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+</main>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var errorLogin = '@TempData["ErrorLogin"]';
+        if (errorLogin) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de autenticación',
+                text: errorLogin,
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#137ea7'
+            });
+        }
+    });
+</script>

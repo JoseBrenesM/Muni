@@ -1,0 +1,71 @@
+﻿@page
+@model WEB.Pages.Cuenta.RegistrarseModel
+@{
+}
+<main class="mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <!-- Form Container with shadow and padding -->
+                <div class="shadow p-4 mb-5 bg-body rounded">
+                    <h2 class="text-center mb-4">Registro de Personal</h2>
+                    <form method="post">
+                        <fieldset>
+                            <div class="mb-3">
+                                <label for="firstName" class="form-label">Nombre</label>
+                                <input type="text" asp-for="registro.Nombre" id="Nombre" class="form-control">
+                                <span asp-validation-for="registro.Nombre" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="lastName" class="form-label">Apellidos</label>
+                                <input type="text" asp-for="registro.Apellido" id="Apellido" class="form-control">
+                                <span asp-validation-for="registro.Apellido" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Direccion" class="form-label">Departamento</label>
+                                <input type="text" asp-for="registro.Direccion" id="depa" class="form-control">
+                                <span asp-validation-for="registro.Direccion" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="Telefono" class="form-label">Teléfono</label>
+                                        <input type="text" asp-for="registro.Telefono" id="Telefono" class="form-control">
+                                        <span asp-validation-for="registro.Telefono" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Correo Electrónico</label>
+                                <input type="email" asp-for="registro.Correo" id="Correo" class="form-control">
+                                <span asp-validation-for="registro.Correo" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" asp-for="registro.Password" id="Password" class="form-control">
+                                <span asp-validation-for="registro.Password" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+                                <input type="password" asp-for="registro.ConfirmPassword" id="ConfirmPassword" class="form-control">
+                                <span asp-validation-for="registro.ConfirmPassword" class="text-danger"></span>
+                            </div>
+                            <div>
+                                <input type="submit" value="Registrar" class="btn btn-primary" style="width:100%">
+                            </div>
+                         
+                            <br>
+                            <a asp-page="../Personas/Index" class="btn btn-secondary" style="width:100%">Volver</a>
+                            </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

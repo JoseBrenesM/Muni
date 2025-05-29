@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB", "WEB\WEB.csproj", "{AB10C3E6-85CF-449F-BDC3-DB854D7022B0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abstracciones", "Abstracciones\Abstracciones.csproj", "{3621B4F8-0C52-4A5F-AD78-FACED3789CD8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BC", "BC\BC.csproj", "{392A8E91-CBE9-401F-BFE5-15C09142604B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB10C3E6-85CF-449F-BDC3-DB854D7022B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB10C3E6-85CF-449F-BDC3-DB854D7022B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB10C3E6-85CF-449F-BDC3-DB854D7022B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB10C3E6-85CF-449F-BDC3-DB854D7022B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3621B4F8-0C52-4A5F-AD78-FACED3789CD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3621B4F8-0C52-4A5F-AD78-FACED3789CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3621B4F8-0C52-4A5F-AD78-FACED3789CD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3621B4F8-0C52-4A5F-AD78-FACED3789CD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{392A8E91-CBE9-401F-BFE5-15C09142604B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{392A8E91-CBE9-401F-BFE5-15C09142604B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{392A8E91-CBE9-401F-BFE5-15C09142604B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{392A8E91-CBE9-401F-BFE5-15C09142604B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {17038577-D0D6-4094-AD49-B5546530E1E3}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,162 @@
+﻿@page
+@model WEB.Pages.Horarios.IndexModel
+<div>
+    <h1 class="mb-4" style="font-weight:bold">Registro de Horarios</h1>
+</div>
+
+
+@if (!Model.Horarios.Any())
+{
+    <div class="alert alert-info">No hay horarios registrados.</div>
+}
+else
+{
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#reporteModal" style="width:100%">Generar Reporte <i class="bi bi-file-earmark-fill"></i></button>
+    <hr></hr>
+    <h2>Lista de Horarios Registrados</h2>
+    <label for="mesSelector" class="form-label text-dark">Buscar...</label>
+    <input type="text" id="busquedaInput" class="form-control mb-3" placeholder="Buscar por nombre o apellido..." />
+    <div class="row mb-3">
+        <div class="col">
+            <label for="fechaInicio" class="form-label text-dark">Desde:</label>
+            <input type="date" id="fechaInicio" class="form-control" data-table-id="tabla-horarios">
+        </div>
+        <div class="col">
+            <label for="fechaFin" class="form-label text-dark">Hasta:</label>
+            <input type="date" id="fechaFin" class="form-control" data-table-id="tabla-horarios">
+        </div>
+    </div>
+    <table id="tabla-horarios" class="table table-bordered table-hover" data-paginacion="true"
+           data-pagination-id="pagination"
+           data-rows-per-page="5">
+        <thead class="table-dark">
+            <tr>
+                <th>Persona</th>
+                <th>Fecha</th>
+                <th>Entrada</th>
+                <th>Inicio Almuerzo</th>
+                <th>Fin Almuerzo</th>
+                <th>Salida</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var h in Model.Horarios)
+            {
+                <tr>
+                    <td>@h.Nombre @h.Apellido</td>
+                    <td>@h.Fecha.ToString("dd/MM/yyyy")</td>
+                    <td>@(h.HoraEntrada?.ToString("HH:mm") ?? "Aún sin marca")</td>
+                    <td>@(h.HoraInicioAlmuerzo?.ToString("HH:mm") ?? "Aún sin marca")</td>
+                    <td>@(h.HoraFinAlmuerzo?.ToString("HH:mm") ?? "Aún sin marca")</td>
+                    <td>@(h.HoraSalida?.ToString("HH:mm") ?? "Aún sin marca ")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <nav>
+        <ul class="pagination justify-content-center" id="pagination"></ul>
+    </nav>
+
+}
+<div class="modal fade" id="reporteModal" tabindex="-1" aria-labelledby="reporteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="formReporte">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reporteModalLabel">Generar Reporte de Horarios</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="usuariosSelect" class="form-label">Usuarios</label>
+                        <select id="usuariosSelect" multiple class="form-control">
+                       
+                            @foreach (var persona in Model.Horarios
+                            .GroupBy(h => h.IdPersona)
+                            .Select(g => g.First())) 
+                            {
+                                <option value="@persona.IdPersona">@persona.Nombre @persona.Apellido</option>
+                            }
+                        </select>
+                        <div class="form-text">Mantén Ctrl presionado para seleccionar múltiples.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fechaInicio" class="form-label">Fecha Inicio</label>
+                        <input type="date" class="form-control" id="fechaInicio" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="fechaFin" class="form-label">Fecha Fin</label>
+                        <input type="date" class="form-control" id="fechaFin" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Descargar Reporte</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/js/buscar.js"></script>
+<script src="/js/paginacion.js"></script>
+
+<script>
+    document.getElementById('formReporte').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const ids = Array.from(document.getElementById('usuariosSelect').selectedOptions).map(o => o.value);
+        const fechaInicio = document.getElementById('fechaInicio').value;
+        const fechaFin = document.getElementById('fechaFin').value;
+
+        if (!fechaInicio || !fechaFin) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Por favor, seleccione ambas fechas (Inicio y Fin).',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+            return;
+        }
+
+        if (ids.length === 0) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Por favor, seleccione al menos una persona.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+            return;
+        }
+
+        const idsParams = ids.map(id => `PersonasIds=${id}`).join('&');
+
+        const url = `https://localhost:7184/api/Reporte/descargar?FechaInicio=${fechaInicio}&FechaFin=${fechaFin}&${idsParams}`;
+
+        const response = await fetch(url, {
+            method: 'GET'
+        });
+
+        if (response.ok) {
+            const blob = await response.blob();
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "ReporteHorarios.xlsx";
+            link.click();
+
+            Swal.fire({
+                title: '¡Reporte generado!',
+                text: 'El reporte de horarios se generó correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                $('#reporteModal').modal('hide');
+                document.getElementById('usuariosSelect').selectedIndex = -1;
+                document.getElementById('fechaInicio').value = '';
+                document.getElementById('fechaFin').value = '';
+            });
+        } else {
+            alert("Error al generar el reporte.");
+        }
+    });
+</script>
+

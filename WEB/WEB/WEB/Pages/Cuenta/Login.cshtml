@@ -1,0 +1,61 @@
+﻿@page
+@model WEB.Pages.Cuenta.LoginModel
+@{
+    @ViewData["MUNI"]
+}
+<main class="mt-5">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="text-center mb-4">
+                    <h2>Bienvenido!</h2>
+                    <p>Por favor accede a tu cuenta.</p>
+                </div>
+                <form class="form p-4 border rounded" method="post">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" asp-for="loginInfo.Correo" class="form-control" placeholder="Correo Electrónico" aria-label="Nombre de usuario" aria-describedby="basic-addon1">
+
+                        <span asp-validation-for="loginInfo.Correo" class="text-danger d-block mt-1"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" asp-for="loginInfo.Password" class="form-control" placeholder="Contraseña" aria-label="Nombre de usuario" aria-describedby="basic-addon1">
+
+                        <span asp-validation-for="loginInfo.Password" class="text-danger d-block mt-1"></span>
+                    </div>
+                    <div class="mb-3 text-end">
+                        <a href="#" class="text-decoration-none">Olvide mi Contraseña</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+                    <br />
+                    <div><a href="../Index" class="btn btn-secondary w-100" style="margin-top:10px">Volver</a></div>
+
+                    <br /><br />
+                    <h6 class="card-subtitle mb-2 text-body-secondary">
+                        Si eres nuevo, <a asp-page="./Registrarse" class="card-link">Registrate</a> aqui.
+                    </h6>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</main>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var errorLogin = '@TempData["ErrorLogin"]';
+        if (errorLogin) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de autenticación',
+                text: errorLogin,
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#137ea7'
+            });
+        }
+    });
+</script>

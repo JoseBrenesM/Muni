@@ -1,0 +1,130 @@
+﻿@{
+    var idUsuario = new Guid();
+    @if (User.Identity.IsAuthenticated)
+    {
+        idUsuario = Abstracciones.Modelos.Autenticacion.ClaimsPrincipalExtensions.GetIdUsuario(User);
+    }
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MUNI - Portal Teletrabajo</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/carrito.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg bg-primary px-lg-5" data-bs-theme="dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="../Home">
+                                <i class="bi bi-house-door"></i> Inicio
+                            </a>
+                        </li>
+
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("1"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Personas/Index">
+                                    <i class="bi bi-gear"></i> Administrador
+                                </a>
+                            </li>
+                        }
+
+                        @if (User.Identity.IsAuthenticated && (User.IsInRole("1") || User.IsInRole("3")))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Horarios/Index">
+                                    <i class="bi bi-clock-history"></i> Horarios
+                                </a>
+                            </li>
+                        }
+                    </ul>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person-circle"></i> @User.Identity.Name
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+                                    <li>
+                                        <a class="dropdown-item text-white" asp-route-id="@idUsuario" asp-page="/Cuenta/MiPerfil">
+                                            <i class="bi bi-person"></i> Mi Perfil
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-white" asp-page="/Cuenta/Out">
+                                            <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-page="../Index">
+                                    <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
+                                </a>
+                            </li>
+                        </ul>
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
+                <div class="col mb-3">
+                    <div class="lc-block mb-3">
+@*                         <a class="navbar-brand " href="">
+                            Logo
+                        </a> *@
+                    </div>
+                    <div class="lc-block">
+                        <div editable="rich">
+
+                            <p class="text-muted">© 2025 Municipalidad de El Guarco, Cartago, Costa Rica </p>
+                        </div>
+                    </div>
+
+                </div>
+            
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/toggle-password.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>

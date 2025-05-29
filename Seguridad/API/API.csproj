@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Autorizacion.Abstracciones" Version="1.0.0" />
+		<PackageReference Include="Autorizacion.BW" Version="1.0.0" />
+		<PackageReference Include="Autorizacion.DA" Version="2.0.0" />
+		<PackageReference Include="Autorizacion.Middleware" Version="1.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.7" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Abstracciones\Abstracciones.csproj" />
+		<ProjectReference Include="..\BC\BC.csproj" />
+		<ProjectReference Include="..\BW\BW.csproj" />
+		<ProjectReference Include="..\DA\DA.csproj" />
+	</ItemGroup>
+
+
+</Project>

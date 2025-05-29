@@ -1,0 +1,36 @@
+﻿@page
+@model WEB.Pages.Roles.EditarModel
+@{
+}
+<h1>Editar Rol</h1>
+<strong>NOTA:</strong><p>Cuando se edite el rol de cualquier usuario, se cerrara esta sesion asi que tendra que volver a iniciar sesion</p>
+<p>Usuario: <b>@Model.persona.Correo</b></p>
+
+<p>Selecciona un rol</p>
+
+<div class="container">
+    <form method="post">
+        <input type="hidden" asp-for="@Model.rolesxUsuarioModel.IdPersona" value="@Model.persona.Id" />
+        <div class="mb-3 form-check">
+            <select asp-for="@Model.rolesxUsuarioModel.Id" class="form-select" aria-label="Default select example">
+                <option value="">Selecciona</option>
+                @foreach (var rol in Model.roles)
+                {
+                    <option value="@rol.Id" selected>@rol.Tipo</option>
+                }
+            </select>
+            <span asp-validation-for="@Model.rolesxUsuarioModel.Id" class="text-danger"></span>
+        </div>
+        <input type="submit" value="Editar" class="btn btn-success w-100" />
+        <div asp-validation-summary="All" class="text-danger"></div>
+    </form>
+</div>
+
+<div>
+    <a asp-page="/Personas/Index" class="btn btn-secondary w-100">Regresar</a>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

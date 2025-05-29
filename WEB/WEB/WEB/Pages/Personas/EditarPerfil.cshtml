@@ -1,0 +1,49 @@
+﻿@page
+@model WEB.Pages.Personas.EditarPerfilModel
+@{
+}
+<br/>
+<h1>Editar Persona</h1>
+
+<br />
+<div class="container">
+    <form method="post">
+        <input type="hidden" asp-for="@Model.persona.Id" />
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label"><b>Nombre</b></label>
+            <input asp-for="persona.Nombre" type="text" class="form-control" id="exampleFormControlInput1">
+            <span asp-validation-for="persona.Nombre" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label"><b>Apellidos</b></label>
+            <input asp-for="persona.Apellido" type="text" class="form-control" id="exampleFormControlInput1">
+            <span asp-validation-for="persona.Apellido" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label"><b>Departamento</b></label>
+            <textarea asp-for="persona.Direccion" class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+            <span asp-validation-for="persona.Direccion" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label"><b>Teléfono</b></label>
+            <input asp-for="persona.Telefono" type="text" class="form-control" id="exampleFormControlInput1">
+            <span asp-validation-for="persona.Telefono" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label"><b>Correo electrónico</b></label>
+            <input asp-for="persona.Correo" type="email" class="form-control" id="exampleFormControlInput1">
+            <span asp-validation-for="persona.Correo" class="text-danger"></span>
+        </div>
+        <input type="submit" value="Editar" style="width:100%" class="btn btn-success" />
+        <div asp-validation-summary="All" class="text-danger"></div>
+    </form>
+    <div>
+        <a href="./Index" class="btn btn-secondary" style="width:100%">Volver</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,49 @@
+﻿@page
+@model WEB.Pages.Roles.IndexModel
+@{
+}
+
+<h1>Roles</h1>
+<p>Usuario: <b>@Model.persona.Correo</b></p>
+
+<div class="container">
+    <a class="btn btn-warning" asp-route-id="@Model.persona.Id" asp-page="./Editar"><i class="bi bi-pencil"></i> Editar Rol</a>
+    <br /><br /><br />
+    <div class="row justify-content-center" style="background-color: #f9f8fa;">
+        <div class="container">
+            @if (Model.roles != null)
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tipo de Rol</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @foreach (var rol in Model.roles)
+                                {
+                                    @Html.DisplayFor(modelItem => rol.Tipo)
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div>
+                    <a href="/Personas" class="btn btn-secondary w-100">Volver</a>
+                </div>
+    
+                <hr></hr>
+
+            }
+            else
+            {
+                <div class="alert alert-danger" role="alert">
+                    No hay roles asignados a este usuario. Añade uno.
+                </div>
+            }
+        </div>
+    </div>
+</div>
